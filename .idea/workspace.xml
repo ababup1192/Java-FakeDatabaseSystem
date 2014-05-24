@@ -121,7 +121,7 @@
       <file leaf-file-name="Table.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/ababup1192/fds/models/database/Table.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5535714" vertical-offset="1146" max-vertical-offset="1650">
+            <state vertical-scroll-proportion="1.8452381" vertical-offset="495" max-vertical-offset="1650">
               <caret line="108" column="33" selection-start-line="108" selection-start-column="33" selection-end-line="108" selection-end-column="33" />
               <folding />
             </state>
@@ -1052,12 +1052,12 @@
       <workItem from="1400828873378" duration="305000" />
       <workItem from="1400838792177" duration="510000" />
       <workItem from="1400845831285" duration="7000" />
-      <workItem from="1400892582746" duration="10634000" />
+      <workItem from="1400892582746" duration="10725000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="54605000" />
+    <option name="totallyTimeSpent" value="54696000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -1527,7 +1527,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/ababup1192/fds/models/database/Table.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5535714" vertical-offset="1146" max-vertical-offset="1650">
+        <state vertical-scroll-proportion="1.8452381" vertical-offset="495" max-vertical-offset="1650">
           <caret line="108" column="33" selection-start-line="108" selection-start-column="33" selection-end-line="108" selection-end-column="33" />
           <folding />
         </state>
