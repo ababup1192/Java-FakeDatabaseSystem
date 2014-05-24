@@ -23,4 +23,13 @@ public class UserTable extends Table<User> {
         return resultList;
     }
 
+    public int deleteByName(String name) {
+        List<User> deleteUserList = selectByName(name);
+
+        for (User user : deleteUserList) {
+            deleteById(user.getId());
+        }
+        return deleteUserList.size();
+    }
+
 }

@@ -1,6 +1,6 @@
 package org.ababup1192.fds.models.modelclass;
 
-public class User$ implements SerializableModel<User> {
+public class User$ implements TableModelInterface$<User> {
     private static User$ instance = null;
 
     public static synchronized User$ getInstance() {

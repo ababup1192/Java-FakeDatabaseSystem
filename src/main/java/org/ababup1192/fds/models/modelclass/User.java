@@ -1,6 +1,6 @@
 package org.ababup1192.fds.models.modelclass;
 
-public class User implements TableObjectInterface {
+public class User implements TableModelInterface {
     private int id;
     private String name;
 

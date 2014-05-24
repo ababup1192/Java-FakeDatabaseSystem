@@ -143,6 +143,123 @@ public class UserTableTest {
     }
 
     @Test
+    public void testDeleteById() throws Exception {
+        // SetUp
+        Database db = new Database(new Path(DatabaseConfig.PROJECT_PATH));
+        try {
+            db.use();
+            UserTable table = new UserTable(db);
+            table.delete();
+            // Prepare Table
+            User user1 = new User(1, "abab");
+            User user2 = new User(2, "ababup");
+            User user3 = new User(3, "ababup1192");
+            table.insert(user1);
+            table.insert(user2);
+            table.insert(user3);
+            // expected List
+            List<User> expected = new ArrayList<User>();
+            expected.add(user1);
+            expected.add(user3);
+            // Exercise
+            boolean actual = table.deleteById(2);
+            // Verify
+            assertThat(actual, is(true));
+            assertThat(table.selectAll(), is(expected));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testDeleteByIdFailCase() throws Exception {
+        // SetUp
+        Database db = new Database(new Path(DatabaseConfig.PROJECT_PATH));
+        try {
+            db.use();
+            UserTable table = new UserTable(db);
+            table.delete();
+            // Prepare Table
+            User user1 = new User(1, "abab");
+            User user2 = new User(2, "ababup");
+            User user3 = new User(3, "ababup1192");
+            table.insert(user1);
+            table.insert(user2);
+            table.insert(user3);
+            // expected List
+            List<User> expected = new ArrayList<User>();
+            expected.add(user1);
+            expected.add(user2);
+            expected.add(user3);
+            // Exercise
+            boolean actual = table.deleteById(-1);
+            // Verify
+            assertThat(actual, is(false));
+            assertThat(table.selectAll(), is(expected));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testDeleteByName() throws Exception {
+        // SetUp
+        Database db = new Database(new Path(DatabaseConfig.PROJECT_PATH));
+        try {
+            db.use();
+            UserTable table = new UserTable(db);
+            table.delete();
+            // Prepare Table
+            User user1 = new User(1, "abab123");
+            User user2 = new User(2, "abab");
+            User user3 = new User(3, "abab");
+            table.insert(user1);
+            table.insert(user2);
+            table.insert(user3);
+            // expected List
+            List<User> expected = new ArrayList<User>();
+            expected.add(user1);
+            // Exercise
+            int actual = table.deleteByName("abab");
+            // Verify
+            assertThat(actual, is(2));
+            assertThat(table.selectAll(), is(expected));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testDeleteByNameFailCase() throws Exception {
+        // SetUp
+        Database db = new Database(new Path(DatabaseConfig.PROJECT_PATH));
+        try {
+            db.use();
+            UserTable table = new UserTable(db);
+            table.delete();
+            // Prepare Table
+            User user1 = new User(1, "abab123");
+            User user2 = new User(2, "abab124");
+            User user3 = new User(3, "abab125");
+            table.insert(user1);
+            table.insert(user2);
+            table.insert(user3);
+            // expected List
+            List<User> expected = new ArrayList<User>();
+            expected.add(user1);
+            expected.add(user2);
+            expected.add(user3);
+            // Exercise
+            int actual = table.deleteByName("hogehoge");
+            // Verify
+            assertThat(actual, is(0));
+            assertThat(table.selectAll(), is(expected));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
     public void testDelete() throws Exception {
         // SetUp
         Database db = new Database(new Path(DatabaseConfig.PROJECT_PATH));
