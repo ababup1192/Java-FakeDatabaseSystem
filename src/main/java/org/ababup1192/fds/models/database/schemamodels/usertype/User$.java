@@ -1,6 +1,8 @@
-package org.ababup1192.fds.models.modelclass;
+package org.ababup1192.fds.models.database.schemamodels.usertype;
 
-public class User$ implements TableModelInterface$<User> {
+import org.ababup1192.fds.models.database.schemamodels.SchemaModelInterface$;
+
+public class User$ implements SchemaModelInterface$<User> {
     private static User$ instance = null;
 
     public static synchronized User$ getInstance() {

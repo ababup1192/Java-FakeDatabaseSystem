@@ -1,8 +1,8 @@
-package org.ababup1192.fds.models.database;
+package org.ababup1192.fds.models.database.table;
 
-import org.ababup1192.fds.models.modelclass.TableModelInterface;
-import org.ababup1192.fds.models.modelclass.TableModelInterface$;
-import org.ababup1192.fds.models.modelclass.User;
+import org.ababup1192.fds.models.database.Database;
+import org.ababup1192.fds.models.database.schemamodels.SchemaModelInterface;
+import org.ababup1192.fds.models.database.schemamodels.SchemaModelInterface$;
 import org.ababup1192.fds.utils.Path;
 
 import java.io.File;
@@ -13,19 +13,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public abstract class Table<T extends TableModelInterface> {
+public abstract class Table<T extends SchemaModelInterface> {
     protected String name;
     protected Path path;
     protected File file;
     protected Database db;
-    protected TableModelInterface$<T> tableModelInterface$;
+    protected SchemaModelInterface$<T> schemaModelInterface$;
 
-    public Table(Database db, TableModelInterface$<T> tableModelInterface$) {
-        this.name = tableModelInterface$.getTableName();
+    public Table(Database db, SchemaModelInterface$<T> schemaModelInterface$) {
+        this.name = schemaModelInterface$.getTableName();
         this.db = db;
         path = new Path(db.getPath() + name + ".dat");
         file = new File(path.toString());
-        this.tableModelInterface$ = tableModelInterface$;
+        this.schemaModelInterface$ = schemaModelInterface$;
     }
 
     public String getName() {
@@ -72,7 +72,7 @@ public abstract class Table<T extends TableModelInterface> {
             Scanner scanner = new Scanner(file);
             scanner.useDelimiter("\n");
             while (scanner.hasNext()) {
-                T tableObject = tableModelInterface$.serializeModel(scanner.next());
+                T tableObject = schemaModelInterface$.serializeModel(scanner.next());
                 if (tableObject != null) {
                     tableObjectList.add(tableObject);
                 }
@@ -96,19 +96,16 @@ public abstract class Table<T extends TableModelInterface> {
     public boolean deleteById(int id) {
         T deleteObject = selectById(id);
         List<T> tableObjectList = selectAll();
-        List<T> newTableObjectList = new ArrayList<T>();
 
         if (deleteObject == null) return false;
         else {
-            for (T tableObject : tableObjectList) {
-                if (id != tableObject.getId()) {
-                    newTableObjectList.add(tableObject);
+            if (delete()) {
+                for (T tableObject : tableObjectList) {
+                    if (id != tableObject.getId()) {
+                        insert(tableObject);
+                    }
                 }
             }
-
-            // 削除したものを除いて、テーブルを再構築
-            delete();
-            insertList(newTableObjectList);
             return true;
         }
     }

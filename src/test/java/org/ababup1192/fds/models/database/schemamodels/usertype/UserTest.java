@@ -1,4 +1,4 @@
-package org.ababup1192.fds.models.modelclass;
+package org.ababup1192.fds.models.database.schemamodels.usertype;
 
 import org.junit.Test;
 
@@ -48,7 +48,7 @@ public class UserTest {
     @Test
     public void testSerialize() throws Exception {
         // SetUp and Exercise
-        User user1 = (User) User$.getInstance().serializeModel("1 ababup1192");
+        User user1 = User$.getInstance().serializeModel("1 ababup1192");
         User user2 = new User(1, "ababup1192");
         // Verify
         assertThat(user1, is(user2));
@@ -57,7 +57,7 @@ public class UserTest {
     @Test
     public void testSerializeResultIsNull() throws Exception {
         // SetUp and Exercise
-        User user1 = (User) User$.getInstance().serializeModel("noNumber ababup1192");
+        User user1 = User$.getInstance().serializeModel("noNumber ababup1192");
         // Verify
         assertThat(user1, nullValue());
     }
