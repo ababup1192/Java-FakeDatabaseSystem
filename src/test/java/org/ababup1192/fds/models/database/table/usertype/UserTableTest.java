@@ -3,6 +3,7 @@ package org.ababup1192.fds.models.database.table.usertype;
 import org.ababup1192.fds.config.DatabaseConfig;
 import org.ababup1192.fds.models.database.Database;
 import org.ababup1192.fds.models.database.schemamodels.usertype.User;
+import org.ababup1192.fds.models.database.schemamodels.usertype.UserChild;
 import org.ababup1192.fds.utils.Path;
 import org.junit.Test;
 
@@ -65,6 +66,30 @@ public class UserTableTest {
     }
 
     @Test
+    public void testInsertChildAndSelectById() throws Exception {
+        // SetUp
+        Database db = new Database(new Path(DatabaseConfig.PROJECT_PATH));
+        try {
+            db.use();
+            UserTable userTable = new UserTable(db);
+            UserChildTable userChildTable = new UserChildTable(db);
+            userTable.delete();
+            userChildTable.delete();
+            // Exercise
+            List<UserChild> userChildList = new ArrayList<UserChild>();
+            userChildList.add(new UserChild(1, "abJr"));
+            userChildList.add(new UserChild(2, "abJr2"));
+            userChildTable.insertList(userChildList);
+            userTable.insert(new User(1, "ababup1192", userChildList));
+            String actual = userTable.selectById(1).toString();
+            String expected = "User(id=1, name=ababup1192) [ UserChild(id=1, name=abJr), UserChild(id=2, name=abJr2) ]";
+            assertThat(actual, is(expected));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
     public void testSelectAll() throws Exception {
         // SetUp
         Database db = new Database(new Path(DatabaseConfig.PROJECT_PATH));
@@ -100,9 +125,12 @@ public class UserTableTest {
             db.use();
             UserTable table = new UserTable(db);
             table.delete();
+            List<UserChild> userChildList = new ArrayList<UserChild>();
+            userChildList.add(new UserChild(1, "abJr"));
+            userChildList.add(new UserChild(2, "abJr2"));
             User user1 = new User(1, "abab1");
             User user2 = new User(2, "abab2");
-            User expected = new User(3, "abab3");
+            User expected = new User(3, "abab3", userChildList);
             table.insert(user1);
             table.insert(user2);
             table.insert(expected);

@@ -46,9 +46,7 @@ public abstract class Table<T extends SchemaModelInterface> {
             fileWriter.write(data.toData() + "\n");
             fileWriter.close();
             return true;
-        } catch (
-                IOException e
-                )
+        } catch (IOException e)
 
         {
             e.printStackTrace();
