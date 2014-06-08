@@ -33,8 +33,11 @@ public abstract class Table<T extends SchemaModelInterface> {
     }
 
     public boolean create() throws IOException {
-        return file.createNewFile();
-
+        if (!file.exists())
+            return file.createNewFile();
+        else{
+            return false;
+        }
     }
 
     public boolean insert(T data) {
